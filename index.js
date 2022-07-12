@@ -6,7 +6,7 @@ let divArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=8&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', limit = '11', time = 'day') => {
+const customUrl = (subreddit = 'all', sort = 'top', limit = '5', time = 'day') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -46,23 +46,24 @@ const showBackgrounds = () => {
 const fetchData = async (url, targetArray = divArray) => {
     let req = await fetch(url)
     let res = await req.json()
-        for (let i = 1; i < res.data.children.length && divArray.length < 5; i++) {
-            let newObj = {}
-            let nestArray = res.data.children[i].data
-            // title property - house textContent for h3 tag
-            newObj.title = nestArray.title
-            // subreddit property = house textContent for h4 tag
-            newObj.subreddit = nestArray.subreddit_name_prefixed
-            // upvotes property = house textContent for h4 tag
-            newObj.upvotes = nestArray.ups
-            // imgUrl property - house src for img tag
-            newObj.imgUrl = ''
-            if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
-                newObj.imgUrl = nestArray['url_overridden_by_dest']
-            } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
-                newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
-            } 
-            targetArray.push(newObj)
+    targetArray = []
+    for (let i = 1; i < res.data.children.length && divArray.length < 5; i++) {
+        let newObj = {}
+        let nestArray = res.data.children[i].data
+        // title property - house textContent for h3 tag
+        newObj.title = nestArray.title
+        // subreddit property = house textContent for h4 tag
+        newObj.subreddit = nestArray.subreddit_name_prefixed
+        // upvotes property = house textContent for h4 tag
+        newObj.upvotes = nestArray.ups
+        // imgUrl property - house src for img tag
+        newObj.imgUrl = ''
+        if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
+            newObj.imgUrl = nestArray['url_overridden_by_dest']
+        } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
+            newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
+        } 
+        targetArray.push(newObj)
     } console.log(targetArray)
     showBackgrounds()
 }
@@ -87,6 +88,25 @@ subreddit
 sort method
 limit
 time
+
+These things will be passed into the customUrl function
+e.g. customUrl(shitposting, new, 25, day)
+we then have two options:
+1. use a let variable and redeclare its value as the reuslt of the customUrl invocation
+2. simply fetchData(customUrl(shitposting, new, 25, day), newArray)
+
+...or what if we just make a fucking huge function
+// global dec
+let formArray = []
+// big function
+const fetchForm = async (subreddit, sort, count, time) => {
+    fetchData(customUrl(subreddit, sort, count, time), newArray)
+}
+
+//function invocation
+
+fetchForm()
+    
 
 */
 
