@@ -11,12 +11,6 @@ const customUrl = (subreddit = 'all', sort = 'top', limit = '11', time = 'day') 
     return fullUrl
 }
 
-let exampleObj = {
-    imgUrl: "https://i.redd.it/2a99kygeata91.jpg",
-    subreddit: "r/MadeMeSmile",
-    title: "This made my day",
-    upvotes: 103166,
-}
 
 // function to iterate over divArray and append everything to the DOM
 const showBackgrounds = () => {
@@ -76,6 +70,16 @@ const fetchData = async (url) => {
 }
 
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
+let exampleObj = {
+    imgUrl: "https://i.redd.it/2a99kygeata91.jpg",
+    subreddit: "r/MadeMeSmile",
+    title: "This made my day",
+    upvotes: 103166,
+}
+
+// YOUR FUNCTION HERE
+
+
 
 
 fetchData(exampleAPI)
