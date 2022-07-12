@@ -21,38 +21,59 @@ let exampleObj = {
 // function to iterate over divArray and append everything to the DOM
 const showData = () => {
     divArray.forEach(obj => {
-        const div = document.createElement('div')
-        const img = document.createElement('img')
-        img.src = obj.imgUrl
-        div.className = 'top-images'
-        div.append(img)
+        let div = document.createElement('div')
+        let h3 = document.createElement('h3') 
+        // https://v https://i
+        if (obj.imgUrl.startsWith('https://i')) {
+            let img = document.createElement('img')
+            img.src = obj.imgUrl
+            img.classList='top-images'
+            div.style=`background-image: url(${img.src}); position: relative;`
+            div.className='img-containers'
+        } else {
+            let video = document.createElement('video')
+            //playsinline autoplay muted loop
+            let source = document.createElement('source')
+            video.setAttribute('playsinline', '')
+            video.setAttribute('autoplay', '')
+            video.setAttribute('muted', '')
+            video.setAttribute('loop', '')
+            source.setAttribute('type', 'video/webm')
+            source.setAttribute('src', obj.imgUrl)
+            video.append(source)
+            div.append(video)
+        }
         topContainer.append(div)
     });
 }
 
 
 
-const fetchData = (url) => {
-    fetch(url)
-        .then(req => req.json())
-        .then(res => {
-            while (divArray.length < 4) {
-                for (let i = 1; i < res.data.children.length; i++) {
-                    let newObj = {}
-                    let nestArray = res.data.children[i].data
-                    // title property - house textContent for h3 tag
-                    newObj.title = nestArray.title
-                    // subreddit property = house textContent for h4 tag
-                    newObj.subreddit = nestArray.subreddit_name_prefixed
-                    // upvotes property = house textContent for h4 tag
-                    newObj.upvotes = nestArray.ups
-                    // imgUrl property - house src for img tag
-                    newObj.imgUrl = nestArray["thumbnail_height"] ? nestArray['url_overridden_by_dest'] : ''
-                    divArray.push(newObj)
-                }
-            } console.log(divArray)
-            showData()
-        }) 
+const fetchData = async (url) => {
+    let req = await fetch(url)
+    let res = await req.json()
+    while (divArray.length < 4) {
+        for (let i = 1; i < res.data.children.length; i++) {
+            let newObj = {}
+            let nestArray = res.data.children[i].data
+            // title property - house textContent for h3 tag
+            newObj.title = nestArray.title
+            // subreddit property = house textContent for h4 tag
+            newObj.subreddit = nestArray.subreddit_name_prefixed
+            // upvotes property = house textContent for h4 tag
+            newObj.upvotes = nestArray.ups
+            // imgUrl property - house src for img tag
+            newObj.imgUrl = ''
+            if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
+                newObj.imgUrl = nestArray['url_overridden_by_dest']
+            } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
+                newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
+            } 
+            divArray.push(newObj)
+        }
+    } console.log(divArray)
+    showData()
 }
+
 
 fetchData(exampleAPI)
