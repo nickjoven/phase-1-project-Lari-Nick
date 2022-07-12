@@ -79,10 +79,58 @@ let exampleObj = {
 
 // YOUR FUNCTION HERE
 
+let formObj = {}
+
+const textBox = document.getElementById('textbox')
+const sort = document.getElementById('sort')
+const time = document.getElementById('time')
+const submit = document.getElementById('submit')
+const form = document.getElementById('form')
+
+const getInput = () => {
+    formObj.subreddit = textBox.value // the input type is text so the value will be whats in the text 
+    formObj.sort = sort.value // the sort valye of the select (dropdown)
+    formObj.time = time.value // the time value is whatever option u click on 
+}
 
 
-
-
+form.addEventListener('submit', (e) => { // conditional is already referenced in eventlisteer
+    e.preventDefault()
+    getInput()
+    textBox.value = ''
+})
 
 
 fetchData(exampleAPI)
+
+
+// need a prevent default for the form 
+// we need to take the values from the form 
+// and set them as properties for the new object
+/* subreddit
+sort method
+limit
+time
+obj {
+subreddit:
+sort:
+time:
+// mae=ke emapty object that wil have these things based on the form
+//
+
+let obj = {
+   subreddit:
+   sort:
+   time: 
+} 
+
+// when sokmeone clicks on the submit button it puts the te
+
+
+obj.subreddit = input.value
+subredditInput.value
+const subRedditInput = document.getElementById(')
+
+
+//sort method for the select name 
+*/
