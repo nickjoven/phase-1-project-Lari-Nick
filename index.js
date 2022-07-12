@@ -3,7 +3,7 @@
 let topContainer = document.getElementById('top-container')
 let divArray = []
 
-let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=5&t=day'
+let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=8&t=day'
 // URL
 
 const customUrl = (subreddit = 'all', sort = 'top', limit = '11', time = 'day') => {
@@ -43,11 +43,10 @@ const showBackgrounds = () => {
 
 
 
-const fetchData = async (url) => {
+const fetchData = async (url, targetArray = divArray) => {
     let req = await fetch(url)
     let res = await req.json()
-    while (divArray.length < 4) {
-        for (let i = 1; i < res.data.children.length; i++) {
+        for (let i = 1; i < res.data.children.length && divArray.length < 5; i++) {
             let newObj = {}
             let nestArray = res.data.children[i].data
             // title property - house textContent for h3 tag
@@ -63,9 +62,8 @@ const fetchData = async (url) => {
             } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
                 newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
             } 
-            divArray.push(newObj)
-        }
-    } console.log(divArray)
+            targetArray.push(newObj)
+    } console.log(targetArray)
     showBackgrounds()
 }
 
@@ -77,12 +75,10 @@ let exampleObj = {
     upvotes: 103166,
 }
 
-// YOUR FUNCTION HERE
+// NEXT STEPS:
+
+// USE VALUES FROM FORM TO INVOKE fetch
 
 
 
-
-
-
-
-fetchData(exampleAPI)
+fetchData(exampleAPI, divArray)
