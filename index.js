@@ -22,6 +22,7 @@ let exampleObj = {
 const showData = () => {
     divArray.forEach(obj => {
         let div = document.createElement('div')
+        div.className='img-containers'
         let h3 = document.createElement('h3') 
         // https://v https://i
         if (obj.imgUrl.startsWith('https://i')) {
@@ -29,7 +30,6 @@ const showData = () => {
             img.src = obj.imgUrl
             img.classList='top-images'
             div.style=`background-image: url(${img.src}); position: relative;`
-            div.className='img-containers'
         } else {
             let video = document.createElement('video')
             //playsinline autoplay muted loop
