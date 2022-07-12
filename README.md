@@ -43,16 +43,16 @@ When the user fills out the form and hits submit, we should fetch data again and
 
 FINAL PROJECT GOALS:
 
-Finish div at top of screen (display text from object over background)
-Complete the form/improve form functionality and appearance
-Include a box in lower 1/2 of screen that will show a preview of posts based on values input into the form
+- Finish div at top of screen (display text from object over background)
+- Complete the form/improve form functionality and appearance
+- Include a box in lower 1/2 of screen that will show a preview of posts based on values input into the form
 
 ADDITIONAL POSSIBILITIES:
 
-Option to load more posts at the top (get the next set of 4 from the database, for instance, or a side scroller or carousel)
-Option to toggle types of content (e.g. only images/videos)
-Option to remove the top bar
-Option to replace the top bar with "favorites"
+- Option to load more posts at the top (get the next set of 4 from the database, for instance, or a side scroller or carousel)
+- Option to toggle types of content (e.g. only images/videos)
+- Option to remove the top bar
+- Option to replace the top bar with "favorites"
 
 
 
