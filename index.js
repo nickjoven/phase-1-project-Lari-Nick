@@ -19,7 +19,7 @@ let exampleObj = {
 }
 
 // function to iterate over divArray and append everything to the DOM
-const showData = () => {
+const showBackgrounds = () => {
     divArray.forEach(obj => {
         let div = document.createElement('div')
         div.className='img-containers'
@@ -72,8 +72,10 @@ const fetchData = async (url) => {
             divArray.push(newObj)
         }
     } console.log(divArray)
-    showData()
+    showBackgrounds()
 }
+
+// create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
 
 
 fetchData(exampleAPI)
