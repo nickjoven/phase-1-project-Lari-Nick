@@ -12,11 +12,11 @@ let divArray = []
 let formObj = {}
 let newArray = []
 
-let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=5&t=day'
+let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=10&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', limit = '5', time = 'day') => {
-    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day') => {
+    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=10&t=${time}`
     return fullUrl
 }
 
@@ -57,12 +57,11 @@ const showBackgrounds = (array, container) => {
 }
 
 
-
-const fetchData = async (url, targetArray = divArray, container = topContainer) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
-    for (let i = 1; i < res.data.children.length && divArray.length < 5; i++) {
+    for (let i = 1; i < res.data.children.length && targetArray.length < 4; i++) {
         let newObj = {}
         let nestArray = res.data.children[i].data
         // title property - house textContent for h3 tag
@@ -83,6 +82,7 @@ const fetchData = async (url, targetArray = divArray, container = topContainer) 
     showBackgrounds(targetArray, container)
 }
 
+fetchData()
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
 let exampleObj = {
     imgUrl: "https://i.redd.it/2a99kygeata91.jpg",
@@ -90,13 +90,6 @@ let exampleObj = {
     title: "This made my day",
     upvotes: 103166,
 }
-
-// NEXT STEPS:
-
-// USE VALUES FROM FORM TO INVOKE fetch
-
-
-
 
 const getInput = () => {
     formObj.subreddit = textBox.value // the input type is text so the value will be whats in the text 
@@ -109,38 +102,20 @@ form.addEventListener('submit', (e) => { // conditional is already referenced in
     e.preventDefault()
     getInput()
     textBox.value = ''
+    console.log(formObj)
+    formFetch()
 })
 
-
-
-/*
-things will be passed into the customUrl function
-e.g. customUrl(shitposting, new, 25, day)
-we then have two options:
-1. use a let variable and redeclare its value as the reuslt of the customUrl invocation
-2. simply fetchData(customUrl(shitposting, new, 25, day), newArray)
-
-...or what if we just make a fucking huge function
-// global dec
-let formArray = []
-// big function
-const fetchForm = async (subreddit, sort, count, time) => {
-    await fetchData(customUrl(subreddit, sort, count, time), formArray)
+// customUrl: (subreddit = 'all', sort = 'top', time = 'day') 
+// fetchData: (url = exampleAPI, targetArray = divArray, container = topContainer)
+const formFetch = async () => {
+    await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time), newArray, bodyContainer)
 }
 
-//function invocation
-fetchForm(shitposting, rising, 25, day)
-
-We could store the form data in an object formData with formData.subreddit, formData.sort,
-formData.count, formData.time
-
-So, here we go.
-Form should exist on the page.
-When the user submits the form, it should 
-    
-
-*/
 
 
-// PAGE LOAD
-fetchData(exampleAPI, divArray, topContainer)
+// NEXT STEPS:
+
+// USE VALUES FROM FORM TO INVOKE fetch
+
+

@@ -30,7 +30,7 @@
     display: block;
     object-fit: contain;
 }
-
+/* children inside img divs */
 .img-containers > * {
     color: white;
 }
