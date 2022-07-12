@@ -79,6 +79,17 @@ let exampleObj = {
 
 // USE VALUES FROM FORM TO INVOKE fetch
 
+/*
+Form needs to provide the following
+
+(subreddit = 'all', sort = 'top', limit = '11', time = 'day')
+subreddit
+sort method
+limit
+time
+
+*/
 
 
+// PAGE LOAD
 fetchData(exampleAPI, divArray)
