@@ -23,7 +23,7 @@ const showBackgrounds = () => {
             let img = document.createElement('img')
             img.src = obj.imgUrl
             img.classList='top-images'
-            div.style=`background-image: url(${img.src}); position: relative;`
+            div.style =`background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73)), url(${img.src}); position: relative;`
         } else {
             let video = document.createElement('video')
             //playsinline autoplay muted loop
@@ -78,6 +78,9 @@ let exampleObj = {
 }
 
 // YOUR FUNCTION HERE
+
+
+
 
 
 
