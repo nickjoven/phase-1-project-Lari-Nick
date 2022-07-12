@@ -1,9 +1,18 @@
 // GOAL: populate ARRAY with OBJECTs whose properties are pulled from the database
 // append images+text content to the div based on the objects
-let topContainer = document.getElementById('top-container')
-let divArray = []
+const topContainer = document.getElementById('top-container')
+const bodyContainer = document.getElementById('body-container')
+const textBox = document.getElementById('textbox')
+const sort = document.getElementById('sort')
+const time = document.getElementById('time')
+const submit = document.getElementById('submit')
+const form = document.getElementById('form')
 
-let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=8&t=day'
+let divArray = []
+let formObj = {}
+let newArray = []
+
+let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=5&t=day'
 // URL
 
 const customUrl = (subreddit = 'all', sort = 'top', limit = '5', time = 'day') => {
@@ -13,11 +22,17 @@ const customUrl = (subreddit = 'all', sort = 'top', limit = '5', time = 'day') =
 
 
 // function to iterate over divArray and append everything to the DOM
-const showBackgrounds = () => {
-    divArray.forEach(obj => {
+const showBackgrounds = (array, container) => {
+    array.forEach(obj => {
         let div = document.createElement('div')
         div.className='img-containers'
         let h3 = document.createElement('h3') 
+        h3.textContent = obj.title
+        let h4 = document.createElement('h4') 
+        h4.textContent = obj.subreddit
+        let h5 = document.createElement('h5') 
+        h5.textContent = obj.upvotes
+        div.append(h3, h4, h5)
         // https://v https://i
         if (obj.imgUrl.startsWith('https://i')) {
             let img = document.createElement('img')
@@ -37,13 +52,13 @@ const showBackgrounds = () => {
             video.append(source)
             div.append(video)
         }
-        topContainer.append(div)
+        container.append(div)
     });
 }
 
 
 
-const fetchData = async (url, targetArray = divArray) => {
+const fetchData = async (url, targetArray = divArray, container = topContainer) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
@@ -65,7 +80,7 @@ const fetchData = async (url, targetArray = divArray) => {
         } 
         targetArray.push(newObj)
     } console.log(targetArray)
-    showBackgrounds()
+    showBackgrounds(targetArray, container)
 }
 
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
@@ -80,16 +95,26 @@ let exampleObj = {
 
 // USE VALUES FROM FORM TO INVOKE fetch
 
+
+
+
+const getInput = () => {
+    formObj.subreddit = textBox.value // the input type is text so the value will be whats in the text 
+    formObj.sort = sort.value // the sort valye of the select (dropdown)
+    formObj.time = time.value // the time value is whatever option u click on 
+}
+
+
+form.addEventListener('submit', (e) => { // conditional is already referenced in eventlisteer
+    e.preventDefault()
+    getInput()
+    textBox.value = ''
+})
+
+
+
 /*
-Form needs to provide the following
-
-(subreddit = 'all', sort = 'top', limit = '11', time = 'day')
-subreddit
-sort method
-limit
-time
-
-These things will be passed into the customUrl function
+things will be passed into the customUrl function
 e.g. customUrl(shitposting, new, 25, day)
 we then have two options:
 1. use a let variable and redeclare its value as the reuslt of the customUrl invocation
@@ -100,16 +125,22 @@ we then have two options:
 let formArray = []
 // big function
 const fetchForm = async (subreddit, sort, count, time) => {
-    fetchData(customUrl(subreddit, sort, count, time), newArray)
+    await fetchData(customUrl(subreddit, sort, count, time), formArray)
 }
 
 //function invocation
+fetchForm(shitposting, rising, 25, day)
 
-fetchForm()
+We could store the form data in an object formData with formData.subreddit, formData.sort,
+formData.count, formData.time
+
+So, here we go.
+Form should exist on the page.
+When the user submits the form, it should 
     
 
 */
 
 
 // PAGE LOAD
-fetchData(exampleAPI, divArray)
+fetchData(exampleAPI, divArray, topContainer)
