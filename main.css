@@ -1,19 +1,17 @@
+
 .img-containers {
-    width: 350px;
+    width: 300px;
     height: 200px;
-    border: 0.5px;
     object-fit: contain;
     text-align: center;
     align-items: center;
     justify-content: center;
-    display: flex;
-    margin-left: 5px;
-    margin-right: 5px;
     overflow: hidden;
     -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: 1; 
 }
 
 #top-container {
@@ -30,7 +28,48 @@
     display: block;
     object-fit: contain;
 }
+
 /* children inside img divs */
 .img-containers > * {
     color: white;
+}
+
+video {
+    z-index: 0;
+    position: absolute;
+    object-fit: cover;
+    width: 300px;
+    height: 200px;
+    
+}
+
+.img-containers:has(video) {
+    width: 300px;
+    height: 200px;
+    border: 0.5px;
+    position: relative;
+    object-fit: cover;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#body-container {
+    padding-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#vid-div + .img-containers {
+    overflow: hidden;
+}
+
+form {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }

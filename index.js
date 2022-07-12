@@ -12,11 +12,11 @@ let divArray = []
 let formObj = {}
 let newArray = []
 
-let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=10&t=day'
+let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
 const customUrl = (subreddit = 'all', sort = 'top', time = 'day') => {
-    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=10&t=${time}`
+    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=25&t=${time}`
     return fullUrl
 }
 
@@ -25,21 +25,23 @@ const customUrl = (subreddit = 'all', sort = 'top', time = 'day') => {
 const showBackgrounds = (array, container) => {
     array.forEach(obj => {
         let div = document.createElement('div')
-        div.className='img-containers'
-        let h3 = document.createElement('h3') 
+        div.className = 'img-containers'
+        let h3 = document.createElement('h3')
         h3.textContent = obj.title
-        let h4 = document.createElement('h4') 
+        let h4 = document.createElement('h4')
         h4.textContent = obj.subreddit
-        let h5 = document.createElement('h5') 
+        let h5 = document.createElement('h5')
         h5.textContent = obj.upvotes
-        div.append(h3, h4, h5)
         // https://v https://i
-        if (obj.imgUrl.startsWith('https://i')) {
+        div.append(h3, h4, h5)
+        if (obj.imgUrl.startsWith('https://i') || obj.imgUrl == 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg') {
             let img = document.createElement('img')
             img.src = obj.imgUrl
-            img.classList='top-images'
-            div.style =`background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73)), url(${img.src}); position: relative;`
+            img.classList = 'top-images'
+            div.style = `background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73)), url(${img.src}); position: relative;`
         } else {
+            let vidDiv = document.createElement('div')
+            vidDiv.id = 'video-div'
             let video = document.createElement('video')
             //playsinline autoplay muted loop
             let source = document.createElement('source')
@@ -50,7 +52,8 @@ const showBackgrounds = (array, container) => {
             source.setAttribute('type', 'video/webm')
             source.setAttribute('src', obj.imgUrl)
             video.append(source)
-            div.append(video)
+            vidDiv.append(video)
+            container.append(vidDiv)
         }
         container.append(div)
     });
@@ -71,12 +74,12 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, container = t
         // upvotes property = house textContent for h4 tag
         newObj.upvotes = nestArray.ups
         // imgUrl property - house src for img tag
-        newObj.imgUrl = ''
+        newObj.imgUrl = 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg'
         if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
             newObj.imgUrl = nestArray['url_overridden_by_dest']
         } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
             newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
-        } 
+        }
         targetArray.push(newObj)
     } console.log(targetArray)
     showBackgrounds(targetArray, container)
@@ -117,5 +120,4 @@ const formFetch = async () => {
 // NEXT STEPS:
 
 // USE VALUES FROM FORM TO INVOKE fetch
-
 
