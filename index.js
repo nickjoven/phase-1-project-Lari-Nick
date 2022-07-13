@@ -15,8 +15,8 @@ let newArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day') => {
-    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=25&t=${time}`
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '4') => {
+    let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
 
@@ -60,11 +60,11 @@ const showBackgrounds = (array, container) => {
 }
 
 
-const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer, targetLength = 4) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
-    for (let i = 1; i < res.data.children.length && targetArray.length < 4; i++) {
+    for (let i = 1; i < res.data.children.length && targetArray.length < targetLength; i++) {
         let newObj = {}
         let nestArray = res.data.children[i].data
         // title property - house textContent for h3 tag
@@ -111,8 +111,8 @@ form.addEventListener('submit', (e) => { // conditional is already referenced in
 
 // customUrl: (subreddit = 'all', sort = 'top', time = 'day') 
 // fetchData: (url = exampleAPI, targetArray = divArray, container = topContainer)
-const formFetch = async () => {
-    await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time), newArray, bodyContainer)
+const formFetch = async (count = 28) => {
+    await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time, count), newArray, bodyContainer, count)
 }
 
 

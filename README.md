@@ -54,6 +54,25 @@ ADDITIONAL POSSIBILITIES:
 - Option to remove the top bar
 - Option to replace the top bar with "favorites"
 
+=== STATUS UPDATE ===
+
+Videos correctly display.
+Text displays over videos.
+Lari has been working on formatting text to look better.
+
+To-do:
+
+Decide what to do with the information on submit. Currently, it pulls up 4 posts from the subreddit.
+How should this display?
+
+Options:
+
+4 images, hit a plus sign to show more/load next 4. Basically rerun function with slightly different parameters
+ooh. + sign and infinite sign
+
+combine search for multiple reddits to infinitely scroll multiple categories
+add favorites
+
 
 
 
