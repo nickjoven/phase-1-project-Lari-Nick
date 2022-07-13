@@ -109,6 +109,10 @@ form {
     pointer-events: none;
 }
 
+/* .remove-button {
+    pointer-events: none;
+} */
+
 #form {
     color: white;
 }

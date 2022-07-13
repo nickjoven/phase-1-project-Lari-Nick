@@ -35,11 +35,14 @@ const showBackgrounds = (array) => {
         h4.textContent = obj.subreddit
         let h5 = document.createElement('h5')
         h5.textContent = obj.upvotes
+        let btn = document.createElement('btn')
+        btn.className = 'remove-button'
+        btn.textContent = 'remove'
         // https://v https://i
         h5.className = ('div-child')
         h4.className = ('div-child')
         h3.className = ('div-child')
-        div.append(h3, h4, h5)
+        div.append(btn, h3, h4, h5)
         if (obj.imgUrl.startsWith('https://i') || obj.imgUrl == 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg') {
             let img = document.createElement('img')
             img.src = obj.imgUrl
@@ -63,7 +66,8 @@ const showBackgrounds = (array) => {
             container.append(vidDiv)
         }
         container.append(div)
-        clickRemove(div)
+        // clickRemove(div)
+        addRemoveButton(btn)
         scrollContainer.append(container)
     })
 }
@@ -134,6 +138,22 @@ window.addEventListener('scroll', (e) => {
     formContainer.classList.toggle('sticky', window.scrollY > 0)
 })
 
-// function that will get a node list of applicable elements
-// add an event listener for each
-// event listener will remove parent when click occurs
+// branch goal: add a button to each img-containing-div that lets you remove things
+
+const addRemoveButton = (HTMLel) => {
+    HTMLel.addEventListener('click', (e) => {
+        if (e.target.parentElement.previousSibling) {
+            if (e.target.parentElement.previousSibling.className == 'video-div') {
+                e.target.parentElement.previousSibling.remove()
+                e.target.parentElement.remove()
+            } else e.target.parentElement.remove()
+        } else e.target.parentElement.remove()
+    })
+}
+
+const showRemoveButton = (HTMLel) => {
+    HTMLel.addEventListener('mouseover', (e) => {
+        
+
+    })
+}
