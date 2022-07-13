@@ -7,6 +7,7 @@ const sort = document.getElementById('sort')
 const time = document.getElementById('time')
 const submit = document.getElementById('submit')
 const form = document.getElementById('form')
+const formContainer = document.getElementById('form-container')
 
 let divArray = []
 let formObj = {}
@@ -15,7 +16,7 @@ let newArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '4') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '6') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -60,7 +61,7 @@ const showBackgrounds = (array, container) => {
 }
 
 
-const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer, targetLength = 4) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer, targetLength = 6) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
@@ -111,11 +112,13 @@ form.addEventListener('submit', (e) => { // conditional is already referenced in
 
 // customUrl: (subreddit = 'all', sort = 'top', time = 'day') 
 // fetchData: (url = exampleAPI, targetArray = divArray, container = topContainer)
-const formFetch = async (count = 28) => {
+const formFetch = async (count = 6) => {
     await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time, count), newArray, bodyContainer, count)
 }
 
-
+window.addEventListener('scroll', (e) => {
+    formContainer.classList.toggle('sticky', window.scrollY > 0)
+})
 
 // NEXT STEPS:
 

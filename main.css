@@ -12,6 +12,7 @@
     -o-background-size: cover;
     background-size: cover;
     z-index: 1; 
+    margin-right: 5px;
 }
 
 #top-container {
@@ -20,7 +21,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    top: 50px;
+    top: 200px;
     position: relative;
 }
 
@@ -77,4 +78,24 @@ form {
     align-items: center;
     text-align: center;
     justify-content: center;
+}
+
+#form-container {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 50px 50px;
+    width: 100%;
+    display: flex;
+    background: rgb(218, 218, 218);
+    z-index: 1000;
+    border-bottom: 1px rgba(0, 0, 0, 0.05);
+    transition: .25s
+}
+
+#form-container.sticky {
+    padding: 25px 50px;
 }
