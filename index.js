@@ -72,18 +72,7 @@ const showBackgrounds = (array) => {
     })
 }
 
-const clickRemove = (HTMLel) => {
-    HTMLel.addEventListener('click', (e) => {
-        if (e.target.previousSibling) {
-            if (e.target.previousSibling.className == 'video-div') {
-                e.target.previousSibling.remove()
-                e.target.remove()
-            } else e.target.remove()
-        } else e.target.remove()
-    }) 
-}
 
-       
 
 
 const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6) => {
@@ -156,6 +145,18 @@ const addRemoveButton = (HTMLel) => {
 const showRemoveButton = (HTMLel) => {
     HTMLel.addEventListener('mouseover', (e) => {
         
-
+        
     })
 }
+
+// Unused -- better to use button
+// const clickRemove = (HTMLel) => {
+//     HTMLel.addEventListener('click', (e) => {
+//         if (e.target.previousSibling) {
+//             if (e.target.previousSibling.className == 'video-div') {
+//                 e.target.previousSibling.remove()
+//                 e.target.remove()
+//             } else e.target.remove()
+//         } else e.target.remove()
+//     }) 
+// }

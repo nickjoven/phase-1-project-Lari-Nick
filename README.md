@@ -17,16 +17,6 @@ The user will submit info through a form to display content in the main containe
 - a heading/div element with a subreddit name
 - a heading/div element a thread title
 - a heading/div element with a number of upvotes
-- a paragraph/div element with the post text (if applicable)
-
-The number of threads displayed will be 10 by default, but the form should allow the user to select 10-25-50 posts to display
-
-STRETCH FEATURES:
-
-- Dark mode
-- Allow media playback
-- Allow user to expand images to larger size
-- Allow user to expand text from a thread if it exceeds a number of characters
 
 NOTES ON THE DATABASE:
 
@@ -73,7 +63,14 @@ ooh. + sign and infinite sign
 combine search for multiple reddits to infinitely scroll multiple categories
 add favorites
 
+## Summary for continuing 7-13-2022
 
+Basic task goals and assigned deliverables are complete.
 
+ADDITIONAL GOALS:
 
+Light/Dark mode toggle (easy)
+Remove button hides unless you hover over the parent element (medium)
+Pretend upvote/downvote option
+Actually do CSS (impossible)
 
