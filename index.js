@@ -101,10 +101,12 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
         newObj.upvotes = nestArray.ups
         // imgUrl property - house src for img tag
         newObj.imgUrl = 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg'
-        if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
-            newObj.imgUrl = nestArray['url_overridden_by_dest']
-        } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
-            newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
+        if (nestArray['url_overridden_by_dest']) {
+            if (nestArray['url_overridden_by_dest'].startsWith('https://i')) {
+                newObj.imgUrl = nestArray['url_overridden_by_dest']
+            } else if (nestArray['url_overridden_by_dest'].startsWith('https://v')) {
+                newObj.imgUrl = nestArray['secure_media']['reddit_video']['fallback_url']
+            }
         }
         targetArray.push(newObj)
     } console.log(targetArray)
