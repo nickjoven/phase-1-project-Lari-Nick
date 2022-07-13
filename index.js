@@ -8,6 +8,7 @@ const time = document.getElementById('time')
 const submit = document.getElementById('submit')
 const form = document.getElementById('form')
 const formContainer = document.getElementById('form-container')
+const scrollContainer = document.getElementById('scroll-container')
 
 let divArray = []
 let formObj = {}
@@ -23,7 +24,9 @@ const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '6') =
 
 
 // function to iterate over divArray and append everything to the DOM
-const showBackgrounds = (array, container) => {
+const showBackgrounds = (array) => {
+    let container = document.createElement('div')
+    container.className = 'top-container'
     array.forEach(obj => {
         let div = document.createElement('div')
         div.className = 'img-containers'
@@ -57,11 +60,13 @@ const showBackgrounds = (array, container) => {
             container.append(vidDiv)
         }
         container.append(div)
+        scrollContainer.append(container)
+
     });
 }
 
 
-const fetchData = async (url = exampleAPI, targetArray = divArray, container = topContainer, targetLength = 6) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
@@ -83,7 +88,7 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, container = t
         }
         targetArray.push(newObj)
     } console.log(targetArray)
-    showBackgrounds(targetArray, container)
+    showBackgrounds(targetArray)
 }
 
 fetchData()
@@ -113,7 +118,7 @@ form.addEventListener('submit', (e) => { // conditional is already referenced in
 // customUrl: (subreddit = 'all', sort = 'top', time = 'day') 
 // fetchData: (url = exampleAPI, targetArray = divArray, container = topContainer)
 const formFetch = async (count = 6) => {
-    await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time, count), newArray, bodyContainer, count)
+    await fetchData(customUrl(formObj.subreddit, formObj.sort, formObj.time, count), newArray, count)
 }
 
 window.addEventListener('scroll', (e) => {
