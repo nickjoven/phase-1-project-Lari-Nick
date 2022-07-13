@@ -17,7 +17,7 @@ let newArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '6') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '25') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -37,6 +37,9 @@ const showBackgrounds = (array) => {
         let h5 = document.createElement('h5')
         h5.textContent = obj.upvotes
         // https://v https://i
+        h5.className = ('div-child')
+        h4.className = ('div-child')
+        h3.className = ('div-child')
         div.append(h3, h4, h5)
         if (obj.imgUrl.startsWith('https://i') || obj.imgUrl == 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg') {
             let img = document.createElement('img')
@@ -45,10 +48,11 @@ const showBackgrounds = (array) => {
             div.style = `background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73)), url(${img.src}); position: relative;`
         } else {
             let vidDiv = document.createElement('div')
-            vidDiv.id = 'video-div'
+            vidDiv.className = 'video-div'
             let video = document.createElement('video')
             //playsinline autoplay muted loop
             let source = document.createElement('source')
+            video.className = ('div-child')
             video.setAttribute('playsinline', '')
             video.setAttribute('autoplay', '')
             video.setAttribute('muted', '')
@@ -60,10 +64,23 @@ const showBackgrounds = (array) => {
             container.append(vidDiv)
         }
         container.append(div)
+        clickRemove(div)
         scrollContainer.append(container)
-
-    });
+    })
 }
+
+const clickRemove = (HTMLel) => {
+    HTMLel.addEventListener('click', (e) => {
+        if (e.target.previousSibling) {
+            if (e.target.previousSibling.className == 'video-div') {
+                e.target.previousSibling.remove()
+                e.target.remove()
+            } else e.target.remove()
+        } else e.target.remove()
+    }) 
+}
+
+       
 
 
 const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6) => {
@@ -125,7 +142,6 @@ window.addEventListener('scroll', (e) => {
     formContainer.classList.toggle('sticky', window.scrollY > 0)
 })
 
-// NEXT STEPS:
-
-// USE VALUES FROM FORM TO INVOKE fetch
-
+// function that will get a node list of applicable elements
+// add an event listener for each
+// event listener will remove parent when click occurs

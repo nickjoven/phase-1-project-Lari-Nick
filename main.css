@@ -13,6 +13,7 @@
     background-size: cover;
     z-index: 1; 
     margin-right: 5px;
+    background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73))
 }
 
 .top-container {
@@ -108,4 +109,8 @@ form {
     height: 100%;
     overflow-wrap: anywhere;
     flex-direction: row;
+}
+
+.div-child {
+    pointer-events: none;
 }
