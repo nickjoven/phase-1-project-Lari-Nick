@@ -1,7 +1,6 @@
 // GOAL: populate ARRAY with OBJECTs whose properties are pulled from the database
 // append images+text content to the div based on the objects
 const topContainer = document.getElementById('top-container')
-const bodyContainer = document.getElementById('body-container')
 const textBox = document.getElementById('textbox')
 const sort = document.getElementById('sort')
 const time = document.getElementById('time')
@@ -110,19 +109,12 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
 
 fetchData()
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
-let exampleObj = {
-    imgUrl: "https://i.redd.it/2a99kygeata91.jpg",
-    subreddit: "r/MadeMeSmile",
-    title: "This made my day",
-    upvotes: 103166,
-}
 
 const getInput = () => {
     formObj.subreddit = textBox.value // the input type is text so the value will be whats in the text 
     formObj.sort = sort.value // the sort valye of the select (dropdown)
     formObj.time = time.value // the time value is whatever option u click on 
 }
-
 
 form.addEventListener('submit', (e) => { // conditional is already referenced in eventlisteer
     e.preventDefault()
