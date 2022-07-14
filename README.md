@@ -84,11 +84,17 @@ Scrolling to the bottom of the page should invoke another fetch/append function,
 2) user's block list (maybe)
 3) subreddits currently displayed
 
-Functionality: assume that the user likes w/e subreddits we initially use. Put those in a list of favorites.
+Note: assume that the user likes w/e subreddits we initially use. Put those in a list of favorites.
 Have a toggle button for 'add to favorites'in the form
 Have an option to remove favorites
 
 1) ONLY add to favorites on successful request --- NOT on form submission
+
+As for SCROLLING... the event listener works. Loading additional content (with a timeout) should not be challenging.
+
+Here's where the challenge lies:
+
+You can make a request to a database
 
 
 

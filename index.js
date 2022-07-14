@@ -156,18 +156,20 @@ const addRemoveButton = (HTMLel) => {
     })
 }
 
-const showRemoveButton = (HTMLel) => {
-    HTMLel.addEventListener('mouseover', (e) => {
+// const showRemoveButton = (HTMLel) => {
+//     HTMLel.addEventListener('mouseover', (e) => {
         
         
-    })
-}
+//     })
+// }
 
 
 // scroll listen
 window.addEventListener('scroll', (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         // alert()
+        scrollFetch()
+        
     }
 })
 
@@ -175,6 +177,19 @@ window.addEventListener('scroll', (e) => {
 
 // base new fetch request to endpoint that takes into account the indices (at least)
 // pick one subreddit and paste it. eventually, keep track of what the user doesn't like
+// for now just use lastIndex as crudely as possible
+
+const randomIndex = (array) => {
+    return array[Math.floor(Math.random()*array.length)]
+}
+
+const scrollFetch = async () => {
+    let randomViewedSub = randomIndex(Object.keys(lastIndex))
+    console.log(randomViewedSub)
+    await fetchData(customUrl(randomViewedSub))
+}
+
+
 
 
 
