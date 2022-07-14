@@ -155,6 +155,13 @@ const showRemoveButton = (HTMLel) => {
     })
 }
 
+window.addEventListener('scroll', (e) => {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        alert()
+    }
+})
+
+
 // Unused -- better to use button
 // const clickRemove = (HTMLel) => {
 //     HTMLel.addEventListener('click', (e) => {
