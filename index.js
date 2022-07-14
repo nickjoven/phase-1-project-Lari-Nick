@@ -15,11 +15,12 @@ let newArray = []
 let trackedSubs = [] 
 let masterTracker = []
 let lastIndex = {}
+let scrollArray = []
 
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '50') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '100') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -78,11 +79,11 @@ const showBackgrounds = (array) => {
 
 
 
-const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6, startIndex = 1) => {
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
-    for (let i = 1; targetArray.length < targetLength; i++) {
+    for (let i = startIndex; targetArray.length < targetLength; i++) {
         let newObj = {}
         let nestArray = res.data.children[i].data
         // title property - house textContent for h3 tag
@@ -111,10 +112,10 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
 }
 
 fetchData()
-fetchData(customUrl('memes'))
+// fetchData(customUrl('memes'))
 fetchData(customUrl('aww'))
 fetchData(customUrl('food'))
-fetchData(customUrl('funny'))
+// fetchData(customUrl('funny'))
 
 
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
@@ -168,7 +169,7 @@ const addRemoveButton = (HTMLel) => {
 window.addEventListener('scroll', (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         // alert()
-        scrollFetch()
+        setTimeout(scrollFetch(), 1000)
         
     }
 })
@@ -183,10 +184,15 @@ const randomIndex = (array) => {
     return array[Math.floor(Math.random()*array.length)]
 }
 
+let lastRandom = ''
+
 const scrollFetch = async () => {
     let randomViewedSub = randomIndex(Object.keys(lastIndex))
-    console.log(randomViewedSub)
-    await fetchData(customUrl(randomViewedSub))
+    if (lastRandom != randomViewedSub) {
+    // console.log(randomViewedSub)
+    // console.log(lastIndex[randomViewedSub])
+    await fetchData(customUrl(randomViewedSub), scrollArray, 6, lastIndex[randomViewedSub])
+    } else return
 }
 
 
