@@ -12,6 +12,7 @@ const scrollContainer = document.getElementById('scroll-container')
 let divArray = []
 let formObj = {}
 let newArray = []
+let trackedSubs = [] 
 
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
@@ -155,12 +156,24 @@ const showRemoveButton = (HTMLel) => {
     })
 }
 
+
+// scroll listen
 window.addEventListener('scroll', (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        alert()
+        // alert()
     }
 })
 
+// keep track of subreddits searched and the ones that appear on initial page load. create  a list of favorites (automatically.)
+// replace the alert with a function that will grab the subreddit names from favorites and grab more posts. Or something.
+
+// Steps: 
+// record subreddit names in an array: get the ones from fetch requests (page load and form submit) and optionally let a user unfavorite a subreddit
+// in the scroll listen, create a function that will do another fetch request combining some of those subreddits. Ideally, write an algorithim that will 
+// encourage the user to scroll as much as possible.
+
+
+// Issues: 
 
 // Unused -- better to use button
 // const clickRemove = (HTMLel) => {
@@ -173,3 +186,4 @@ window.addEventListener('scroll', (e) => {
 //         } else e.target.remove()
 //     }) 
 // }
+
