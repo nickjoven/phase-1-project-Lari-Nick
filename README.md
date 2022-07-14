@@ -69,8 +69,9 @@ Basic task goals and assigned deliverables are complete.
 
 ADDITIONAL GOALS:
 
-Light/Dark mode toggle (easy)
-Remove button hides unless you hover over the parent element (medium)
-Pretend upvote/downvote option
-Actually do CSS (impossible)
+- Light/Dark mode toggle (easy)
+- Remove button hides unless you hover over the parent element (medium)
+- Pretend upvote/downvote option 
+- Actually do CSS (impossible)
+- Error catching (medium)
 

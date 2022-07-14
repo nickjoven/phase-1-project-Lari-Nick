@@ -103,6 +103,11 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
 }
 
 fetchData()
+fetchData(customUrl('memes'))
+fetchData(customUrl('aww'))
+fetchData(customUrl(''))
+
+
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
 
 const getInput = () => {
