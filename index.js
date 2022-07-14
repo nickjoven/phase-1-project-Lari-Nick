@@ -20,17 +20,17 @@ let scrollArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '50') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'week', limit = '50') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
 
 
 // function to iterate over divArray and append everything to the DOM
-const showBackgrounds = (array) => {
+const showBackgrounds = async (array) => {
     let container = document.createElement('div')
     container.className = 'top-container'
-    array.forEach(obj => {
+    await array.forEach(obj => {
         let div = document.createElement('div')
         div.className = 'img-containers'
         let h3 = document.createElement('h3')
@@ -169,7 +169,9 @@ const addRemoveButton = (HTMLel) => {
 window.addEventListener('scroll', async (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         // alert()
-        setTimeout(await scrollFetch(), 1000)
+        setTimeout(await scrollFetch(), 250)
+        setTimeout(await scrollFetch(), 250)
+        
         
     }
 })
