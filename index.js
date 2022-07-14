@@ -20,7 +20,7 @@ let scrollArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '100') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '50') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -166,10 +166,10 @@ const addRemoveButton = (HTMLel) => {
 
 
 // scroll listen
-window.addEventListener('scroll', (e) => {
+window.addEventListener('scroll', async (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         // alert()
-        setTimeout(scrollFetch(), 1000)
+        setTimeout(await scrollFetch(), 1000)
         
     }
 })
@@ -188,11 +188,15 @@ let lastRandom = ''
 
 const scrollFetch = async () => {
     let randomViewedSub = randomIndex(Object.keys(lastIndex))
-    if (lastRandom != randomViewedSub) {
-    // console.log(randomViewedSub)
-    // console.log(lastIndex[randomViewedSub])
-    await fetchData(customUrl(randomViewedSub), scrollArray, 6, lastIndex[randomViewedSub])
-    } else return
+    if (lastRandom == randomViewedSub) {
+        // console.log(randomViewedSub)
+        return
+        // console.log(lastIndex[randomViewedSub])
+    } 
+    else {
+        await fetchData(customUrl(randomViewedSub), scrollArray, 6, lastIndex[randomViewedSub])
+    }
+    lastRandom = randomViewedSub
 }
 
 
