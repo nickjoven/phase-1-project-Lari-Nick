@@ -13,6 +13,8 @@ let divArray = []
 let formObj = {}
 let newArray = []
 let trackedSubs = [] 
+let masterTracker = []
+let lastIndex = {}
 
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
@@ -87,6 +89,10 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
         newObj.title = nestArray.title
         // subreddit property = house textContent for h4 tag
         newObj.subreddit = nestArray.subreddit_name_prefixed
+        newObj.baseSubreddit = nestArray.subreddit
+        if (lastIndex[nestArray.subreddit] == undefined) { // !!!!! keeps track of where next i needs to start
+            lastIndex[nestArray.subreddit] = parseInt(i)
+        } else lastIndex[nestArray.subreddit]++
         // upvotes property = house textContent for h4 tag
         newObj.upvotes = nestArray.ups
         // imgUrl property - house src for img tag
@@ -100,6 +106,7 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
         }
         targetArray.push(newObj)
     } console.log(targetArray)
+    masterTracker.push(targetArray)
     showBackgrounds(targetArray)
 }
 
@@ -164,8 +171,13 @@ window.addEventListener('scroll', (e) => {
     }
 })
 
-// keep track of subreddits searched and the ones that appear on initial page load. create  a list of favorites (automatically.)
-// replace the alert with a function that will grab the subreddit names from favorites and grab more posts. Or something.
+// thing to try:
+
+// base new fetch request to endpoint that takes into account the indices (at least)
+// pick one subreddit and paste it. eventually, keep track of what the user doesn't like
+
+
+
 
 // Steps: 
 // record subreddit names in an array: get the ones from fetch requests (page load and form submit) and optionally let a user unfavorite a subreddit
@@ -173,7 +185,6 @@ window.addEventListener('scroll', (e) => {
 // encourage the user to scroll as much as possible.
 
 
-// Issues: 
 
 // Unused -- better to use button
 // const clickRemove = (HTMLel) => {
