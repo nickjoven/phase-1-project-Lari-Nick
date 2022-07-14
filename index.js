@@ -16,7 +16,7 @@ let newArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '25') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'day', limit = '50') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -105,7 +105,8 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
 fetchData()
 fetchData(customUrl('memes'))
 fetchData(customUrl('aww'))
-fetchData(customUrl(''))
+fetchData(customUrl('food'))
+fetchData(customUrl('funny'))
 
 
 // create a function that will take properties of exampleObj and display the title, subreddit, and upvotes over the first image in div id="top-container" 
