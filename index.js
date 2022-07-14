@@ -80,7 +80,7 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
-    for (let i = 1; i < res.data.children.length && targetArray.length < targetLength; i++) {
+    for (let i = 1; targetArray.length < targetLength; i++) {
         let newObj = {}
         let nestArray = res.data.children[i].data
         // title property - house textContent for h3 tag
