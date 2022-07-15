@@ -92,9 +92,15 @@ Have an option to remove favorites
 
 As for SCROLLING... the event listener works. Loading additional content (with a timeout) should not be challenging.
 
-Here's where the challenge lies:
+===
 
-You can make a request to a database
+Ok, moving on. Event listener added. Scrolling gets more posts (albeit randomly).
+
+Functionality to add: 
+- remove all
+- light/dark mode
+- 
+
 
 
 

@@ -20,7 +20,7 @@ let scrollArray = []
 let exampleAPI = 'https://www.reddit.com/r/all/top.json?raw_json=1&limit=25&t=day'
 // URL
 
-const customUrl = (subreddit = 'all', sort = 'top', time = 'week', limit = '50') => {
+const customUrl = (subreddit = 'all', sort = 'top', time = 'week', limit = '18') => {
     let fullUrl = `https://www.reddit.com/r/${subreddit}/${sort}.json?raw_json=1&limit=${limit}&t=${time}`
     return fullUrl
 }
@@ -35,6 +35,7 @@ const showBackgrounds = async (array) => {
         div.className = 'img-containers'
         let h3 = document.createElement('h3')
         h3.textContent = obj.title
+        h3.className = ('subreddit-display')
         let h4 = document.createElement('h4')
         h4.textContent = obj.subreddit
         let h5 = document.createElement('h5')
@@ -45,8 +46,8 @@ const showBackgrounds = async (array) => {
         // https://v https://i
         h5.className = ('div-child')
         h4.className = ('div-child')
-        h3.className = ('div-child')
-        div.append(btn, h3, h4, h5)
+        h3.classList.add('div-child')
+        div.append(btn, h5, h4, h3)
         if (obj.imgUrl.startsWith('https://i') || obj.imgUrl == 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg') {
             let img = document.createElement('img')
             img.src = obj.imgUrl
@@ -79,13 +80,18 @@ const showBackgrounds = async (array) => {
 
 
 
-const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6, startIndex = 1) => {
+const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength = 6, startIndex = 0) => {
+    // console.log(url)
     let req = await fetch(url)
     let res = await req.json()
     targetArray = []
     for (let i = startIndex; targetArray.length < targetLength; i++) {
         let newObj = {}
-        let nestArray = res.data.children[i].data
+        // console.log(res)
+        // console.log(res.data)
+        // console.log(res.data.children)
+        // console.log(res.data.children[i])
+        let nestArray = await res.data.children[i].data
         // title property - house textContent for h3 tag
         newObj.title = nestArray.title
         // subreddit property = house textContent for h4 tag
@@ -106,15 +112,21 @@ const fetchData = async (url = exampleAPI, targetArray = divArray, targetLength 
             }
         }
         targetArray.push(newObj)
-    } console.log(targetArray)
+    } 
+    // console.log(targetArray)
     masterTracker.push(targetArray)
     showBackgrounds(targetArray)
 }
 
-fetchData()
 // fetchData(customUrl('memes'))
-fetchData(customUrl('aww'))
-fetchData(customUrl('food'))
+
+const renderLoad = async () => {
+    await fetchData()
+    await fetchData(customUrl('aww'))
+    await fetchData(customUrl('food'))
+}
+
+renderLoad()
 // fetchData(customUrl('funny'))
 
 
@@ -130,7 +142,7 @@ form.addEventListener('submit', (e) => { // conditional is already referenced in
     e.preventDefault()
     getInput()
     textBox.value = ''
-    console.log(formObj)
+    // console.log(formObj)
     formFetch()
 })
 
@@ -170,9 +182,7 @@ window.addEventListener('scroll', async (e) => {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         // alert()
         setTimeout(await scrollFetch(), 250)
-        setTimeout(await scrollFetch(), 250)
-        
-        
+        setTimeout(await scrollFetch(), 250)    
     }
 })
 

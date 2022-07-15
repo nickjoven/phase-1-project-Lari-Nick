@@ -1,4 +1,8 @@
 
+body {
+    font-family: 'Noto Sans';
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -7,7 +11,7 @@ body::-webkit-scrollbar {
     width: 300px;
     height: 200px;
     object-fit: contain;
-    text-align: center;
+    text-align: left;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -15,9 +19,23 @@ body::-webkit-scrollbar {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    inline-size: 300px;
+    font-size: smaller;
     z-index: 1; 
     margin-right: 5px;
     background-image: linear-gradient(to bottom, rgba(245, 245, 245, 0.1), rgba(25, 25, 25, 0.73))
+}
+
+.subreddit-display {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rm-overflow {
+    text-overflow: clip;
+
 }
 
 .top-container {
@@ -41,6 +59,7 @@ body::-webkit-scrollbar {
 /* children inside img divs */
 .img-containers > * {
     color: white;
+    text-shadow: 0.5px 0.8px rgba(0, 0, 0, 0.428);
 }
 
 video {
@@ -114,4 +133,11 @@ form {
 
 #form {
     color: white;
+}
+
+h3 {
+    position: relative;
+    bottom: -45px;
+    flex-direction: column-reverse;
+    
 }
