@@ -212,7 +212,18 @@ const scrollFetch = async () => {
 }
 
 
+// Make an event listener for the 'clear' button. When clicked, it should remove the contents of the scroll div
 
+// create an array to store "favorite" subreddits. clicking on a subreddit name should add it to favorites
+
+
+let button = document.getElementById('button')
+button.addEventListener('click', (e) => {
+    while (scrollContainer.firstChild) {
+        scrollContainer.removeChild(scrollContainer.firstChild);
+    }
+    
+})
 
 
 
