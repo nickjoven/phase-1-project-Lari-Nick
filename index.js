@@ -200,7 +200,12 @@ const randomIndex = (array) => {
 let lastRandom = ''
 
 const scrollFetch = async () => {
-    let randomViewedSub = randomIndex(Object.keys(lastIndex))
+    let arr = Object.keys(lastIndex) /// foreach element of the favsubreddit arr, push it into this arra , unless its already there 
+    favSubReddits.forEach(element => {
+        arr.push(element) 
+    }) 
+    let uniqueSubs = [...new Set(arr)]
+    let randomViewedSub = randomIndex(uniqueSubs)
     if (lastRandom == randomViewedSub) {
         // console.log(randomViewedSub)
         return
