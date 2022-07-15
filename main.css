@@ -123,9 +123,9 @@ form {
     width: 100%;
 }
 
-.div-child {
+/* .div-child {
     pointer-events: none;
-}
+} */
 
 .remove-button {
     display: none;

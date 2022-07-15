@@ -46,6 +46,7 @@ const showBackgrounds = async (array) => {
         // https://v https://i
         h5.className = ('div-child')
         h4.className = ('div-child')
+        clickFavorite(h4)
         h3.classList.add('div-child')
         div.append(btn, h5, h4, h3)
         if (obj.imgUrl.startsWith('https://i') || obj.imgUrl == 'https://i.pinimg.com/736x/cf/76/df/cf76df177afe46ee256203db4581ef02.jpg') {
@@ -220,10 +221,20 @@ const scrollFetch = async () => {
 let button = document.getElementById('button')
 button.addEventListener('click', (e) => {
     while (scrollContainer.firstChild) {
-        scrollContainer.removeChild(scrollContainer.firstChild);
+        scrollContainer.removeChild(scrollContainer.firstChild)
     }
     
 })
+
+let favSubReddits = []
+
+const clickFavorite = (node) => {
+    node.addEventListener('click',(e) => {
+        if (favSubReddits.includes(node.textContent) === false) favSubReddits.push(node.textContent.replace('r/', ''))
+        console.log(favSubReddits)
+    })
+
+}
 
 
 
